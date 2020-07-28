@@ -14,7 +14,7 @@ import NavHeader from '../../components/Header/NavHeader';
 import { toast } from '../../helpers/toast';
 import useForm from '../../hooks/useForm';
 import validateSignup from '../../validators/validateSignup';
-import firebase from '../../firebase/firebase';
+import firebase from '../../firebase';
 
 const INITIAL_STATE = {
 	name: ""	,

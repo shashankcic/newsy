@@ -26,6 +26,8 @@ import EditProfile from './pages/Auth/EditProfile';
 import Forgot from './pages/Auth/Forgot';
 import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
+import useAuth from './hooks/useAuth';
+import userContext from './contexts/userContext';
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -47,48 +49,54 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-const App = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>	
-      	<IonRouterOutlet>
-          <Route path="/" render={() => <Redirect to="/news" />} exact={true} />
-          <Route path="/news" component={News} />
-          <Route path="/trending" component={Trending} />
-          <Route path="/submit" component={Submit} />
-          <Route path="/search" component={Search} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/register" component={Signup} />
-          <Route path="/login" component={Login} />
-          <Route path="/edit-profile" component={EditProfile} />
-          <Route path="/forgot" component={Forgot} />
-          <Route component={() => <Redirect to="/news" />} />
-        </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-		  <IonTabButton tab="news" href="/news">
-		    <IonIcon icon={newspaperOutline} />
-		    <IonLabel>Newsy</IonLabel>
-		  </IonTabButton>
-  		  <IonTabButton tab="trending" href="/trending">
-		    <IonIcon icon={trendingUpOutline} />
-		    <IonLabel>Trending</IonLabel>
-     	  </IonTabButton>
-		  <IonTabButton tab="submit" href="/submit">
-		    <IonIcon icon={createOutline} />
-		    <IonLabel>Submit</IonLabel>
-		  </IonTabButton>
-		  <IonTabButton tab="search" href="/search">
-		    <IonIcon icon={searchOutline} />
-		    <IonLabel>Search</IonLabel>
-		  </IonTabButton>
-		  <IonTabButton tab="profile" href="/profile">
-		    <IonIcon icon={personCircleOutline} />
-		    <IonLabel>Profile</IonLabel>
-		  </IonTabButton>
-        </IonTabBar>
-	  </IonTabs>	
-    </IonReactRouter>
-  </IonApp>
-);
+const App = () => {
+  const [user,setUser] = useAuth();
+  
+  return(
+    <IonApp>
+      <IonReactRouter>
+        <userContext.Provider value={{ user, setUser }}>
+          <IonTabs>	
+          	<IonRouterOutlet>
+              <Route path="/" render={() => <Redirect to="/news" />} exact={true} />
+              <Route path="/news" component={News} />
+              <Route path="/trending" component={Trending} />
+              <Route path="/submit" component={Submit} />
+              <Route path="/search" component={Search} />
+              <Route path="/profile" component={Profile} />
+              <Route path="/register" component={Signup} />
+              <Route path="/login" component={Login} />
+              <Route path="/edit-profile" component={EditProfile} />
+              <Route path="/forgot" component={Forgot} />
+              <Route component={() => <Redirect to="/news" />} />
+            </IonRouterOutlet>
+            <IonTabBar slot="bottom">
+        		  <IonTabButton tab="news" href="/news">
+        		    <IonIcon icon={newspaperOutline} />
+        		    <IonLabel>Newsy</IonLabel>
+        		  </IonTabButton>
+          		  <IonTabButton tab="trending" href="/trending">
+        		    <IonIcon icon={trendingUpOutline} />
+        		    <IonLabel>Trending</IonLabel>
+             	  </IonTabButton>
+        		  <IonTabButton tab="submit" href="/submit">
+        		    <IonIcon icon={createOutline} />
+        		    <IonLabel>Submit</IonLabel>
+        		  </IonTabButton>
+        		  <IonTabButton tab="search" href="/search">
+        		    <IonIcon icon={searchOutline} />
+        		    <IonLabel>Search</IonLabel>
+        		  </IonTabButton>
+        		  <IonTabButton tab="profile" href="/profile">
+        		    <IonIcon icon={personCircleOutline} />
+        		    <IonLabel>Profile</IonLabel>
+        		  </IonTabButton>
+            </IonTabBar>
+    	    </IonTabs>
+        </userContext.Provider>	
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;
