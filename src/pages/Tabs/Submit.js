@@ -19,7 +19,7 @@ import firebase from '../../firebase';
 const INITIAL_STATE = {
 	description: "",
 	url: "",
-}
+};
 
 const Submit = (props) => {
   const {user} = React.useContext(userContext);
@@ -39,53 +39,53 @@ const Submit = (props) => {
 				},
 				voteCount: 1,
 				votes: [],
+				comments: [],
 				created: Date.now(),
 			};
 			firebase.db.collection('links').add(newLink);
 			props.history.push('/');
 		}
 	}
-
   return(
-	<IonPage>
-	  <SmallHeader title='Submit' />
-	  <IonContent fullscreen>
-	  	<LargeHeader title='Submit' />
-			<IonItem lines='full'>
-				<IonLabel position='floating'>Description</IonLabel>
-				<IonInput 
-					name='description'
-					type='text'
-					value={values.description}
-					onIonChange={handleChange}
-					required
-				></IonInput>
-			</IonItem>
-			<IonItem lines='full'>
-				<IonLabel position='floating'>URL</IonLabel>
-				<IonInput 
-					name='url'
-					type='url'
-					value={values.url}
-					onIonChange={handleChange}
-					required
-				></IonInput>
-			</IonItem>
-			<IonRow>
-				<IonCol>
-					<IonButton
-						expand='block'
-						color='primary'
-						type='submit'
-						onClick={handleSubmit}
-					>
-						Submit
-					</IonButton>
-				</IonCol>
-			</IonRow>
-	  </IonContent>
-	</IonPage>
-  )
-}
+		<IonPage>
+		  <SmallHeader title='Submit' />
+		  <IonContent fullscreen>
+		  	<LargeHeader title='Submit' />
+				<IonItem lines='full'>
+					<IonLabel position='floating'>Description</IonLabel>
+					<IonInput 
+						name='description'
+						type='text'
+						value={values.description}
+						onIonChange={handleChange}
+						required
+					></IonInput>
+				</IonItem>
+				<IonItem lines='full'>
+					<IonLabel position='floating'>URL</IonLabel>
+					<IonInput 
+						name='url'
+						type='url'
+						value={values.url}
+						onIonChange={handleChange}
+						required
+					></IonInput>
+				</IonItem>
+				<IonRow>
+					<IonCol>
+						<IonButton
+							expand='block'
+							color='primary'
+							type='submit'
+							onClick={handleSubmit}
+						>
+							Submit
+						</IonButton>
+					</IonCol>
+				</IonRow>
+		  </IonContent>
+		</IonPage>
+  );
+};
 
 export default Submit;
