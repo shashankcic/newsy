@@ -28,6 +28,7 @@ import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
 import useAuth from './hooks/useAuth';
 import userContext from './contexts/userContext';
+import Link from './pages/Link';
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -68,6 +69,7 @@ const App = () => {
               <Route path="/login" component={Login} />
               <Route path="/edit-profile" component={EditProfile} />
               <Route path="/forgot" component={Forgot} />
+              <Route path="/link/:linkId" component={Link} />
               <Route component={() => <Redirect to="/news" />} />
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
