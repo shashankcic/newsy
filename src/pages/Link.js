@@ -8,6 +8,7 @@ import {
 	IonGrid,
 	IonRow,
 	IonCol,
+	IonButton,
 } from '@ionic/react';
 import NavHeader from '../components/Header/NavHeader';
 import {
@@ -32,6 +33,27 @@ const Link = (props) => {
 		linkRef.get().then((doc) => {
 			setLink({ ...doc.data(), id: doc.id})
 		})
+	}
+
+	function handleAddVote() {
+		if (!user) {
+			props.history.push('/login')
+		} else {
+			linkRef.get().then((doc) => {
+				if(doc.exists) {
+					const previousVotes = doc.data().votes;
+					const vote = { votedBy: { id: user.uid, name: user.displayName } };
+					const updatedVotes = [...previousVotes, vote];
+					const voteCount = updatedVotes.length;
+					linkRef.update({votes: updatedVotes, voteCount });
+					setLink((prevState) => ({
+						...prevState,
+						votes: updatedVotes,
+						voteCount: voteCount,
+					}))
+				} 
+			})
+		}
 	}
 
 	function handleDeleteLink() {
@@ -71,6 +93,9 @@ const Link = (props) => {
 						<IonRow>
 							<IonCol class='ion-text-center'>
 								<LinkItem link={link} browser={openBrowser} />
+								<IonButton onClick={() => handleAddVote()} size='small'>
+									Upvote
+								</IonButton>
 							</IonCol>
 						</IonRow>
 					</IonGrid>
